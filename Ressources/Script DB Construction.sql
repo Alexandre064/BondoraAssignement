@@ -3,7 +3,7 @@ CREATE TABLE [Users] (
   [full_name] nvarchar(255),
   [fidelity_point] int,
   [email] nvarchar(255),
-  [phone] nvarchar(255)
+  [phone] nvarchar(255),
   [address] varchar(2000),
 )
 GO
