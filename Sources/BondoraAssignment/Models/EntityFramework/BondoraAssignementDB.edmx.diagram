@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b5941f349eca45f4abbcee46fdd24487" Name="Diagram1">
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.CartDetail" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.Category" Width="1.5" PointX="7.625" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.FromToCalculation" Width="1.5" PointX="4.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.Order" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.OrderDetail" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.Payment" Width="1.5" PointX="1" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.Product" Width="1.5" PointX="7.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.ProductOrderDetail" Width="1.5" PointX="3.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.Rate" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BondoraAssignementDBModel.User" Width="1.5" PointX="6.25" PointY="12.125" IsExpanded="true" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__CartDetai__produ__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__CartDetai__user___32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__FromToCal__categ__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__Product__categor__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__FromToCal__rate___3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__Order__payment_i__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__OrderDeta__order__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__OrderDeta__user___38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__ProductOr__Order__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="BondoraAssignementDBModel.FK__ProductOr__produ__36B12243" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

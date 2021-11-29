@@ -17,17 +17,19 @@ namespace BondoraAssignment.Models.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.OrderDetails = new HashSet<OrderDetail>();
+            this.CartDetails = new HashSet<CartDetail>();
+            this.ProductOrderDetails = new HashSet<ProductOrderDetail>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public string product_description { get; set; }
-        public Nullable<int> number_of_day { get; set; }
         public Nullable<int> category_id { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartDetail> CartDetails { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<ProductOrderDetail> ProductOrderDetails { get; set; }
     }
 }

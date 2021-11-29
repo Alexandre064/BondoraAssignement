@@ -1,0 +1,91 @@
+﻿
+@model BondoraAssignment.Models.EntityFramework.User
+@{
+    ViewBag.Title = "This is your cart : ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cart details : </h2>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Number of day to rent
+            </th>
+            <th>
+                Product price
+            </th>
+            <th>
+                Fidelity point
+            </th>
+            <th>
+                Remove ?
+            </th>
+        </tr>
+    </thead>
+    @{
+        if (Model.CartDetails.Count() < 1)
+        {
+            <p>Your cart is empty.</p>
+        }
+        else
+        {
+
+            <tbody>
+                @{
+                    int cpt = 1;
+                    foreach (var item in Model.CartDetails)
+                    {
+
+                        <tr>
+                            <td>
+                                @cpt
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Category.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.number_of_day)
+                            </td>
+                            <td>
+                                @Html.Action("GetPrice", item)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Category.fidelity_point)
+                            </td>
+
+                            <td>
+                                <button type="button" onclick="RemoveItemFromCart(@item.id,@Model.id)">Remove from cart</button>
+                            </td>
+                        </tr>
+                        cpt++;
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Total price : @Html.Action("GetTotalPrice", Model)
+                        <button type="button" onclick="ConfirmBuyCommand(@Model.id)"> Buy ! </button>
+                    </th>
+                </tr>
+            </tfoot>
+        }
+    }
+
+</table>
+
+<script src="~/Scripts/cartDetail.js"></script>

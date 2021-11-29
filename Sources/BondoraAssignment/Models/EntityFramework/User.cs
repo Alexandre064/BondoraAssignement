@@ -17,6 +17,7 @@ namespace BondoraAssignment.Models.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.CartDetails = new HashSet<CartDetail>();
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
@@ -25,7 +26,10 @@ namespace BondoraAssignment.Models.EntityFramework
         public Nullable<int> fidelity_point { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
+        public string address { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartDetail> CartDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

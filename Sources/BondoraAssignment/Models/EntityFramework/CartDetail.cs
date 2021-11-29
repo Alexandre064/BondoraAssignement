@@ -12,22 +12,14 @@ namespace BondoraAssignment.Models.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderDetail
+    public partial class CartDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderDetail()
-        {
-            this.ProductOrderDetails = new HashSet<ProductOrderDetail>();
-        }
-    
         public int id { get; set; }
-        public Nullable<int> order_id { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> user_id { get; set; }
+        public Nullable<int> product_id { get; set; }
+        public Nullable<int> number_of_day { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOrderDetail> ProductOrderDetails { get; set; }
     }
 }

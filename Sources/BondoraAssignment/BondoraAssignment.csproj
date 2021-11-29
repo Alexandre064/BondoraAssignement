@@ -134,51 +134,64 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalculatorHelper.cs" />
     <Compile Include="Models\DBInitializer\BondoraAssignementDBInitializer.cs" />
-    <Compile Include="Models\EntityFramework\BondoraAssignementDBContext.Context.cs">
+    <Compile Include="Models\DBRequest.cs" />
+    <Compile Include="Models\EntityFramework\BondoraAssignementDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BondoraAssignementDBContext.Context.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityFramework\BondoraAssignementDBContext.cs">
+    <Compile Include="Models\EntityFramework\BondoraAssignementDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityFramework\BondoraAssignementDBContext.Designer.cs">
+    <Compile Include="Models\EntityFramework\BondoraAssignementDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BondoraAssignementDBContext.edmx</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\CartDetail.cs">
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Category.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\FromToCalculation.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Order.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\OrderDetail.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Payment.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Product.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\ProductOrderDetail.cs">
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Rate.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\User.cs">
-      <DependentUpon>BondoraAssignementDBContext.tt</DependentUpon>
+      <DependentUpon>BondoraAssignementDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InvoiceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,31 +203,35 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Lightpick.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\sweetalert2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\EntityFramework\BondoraAssignementDBContext.Context.tt">
+    <Content Include="Models\EntityFramework\BondoraAssignementDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BondoraAssignementDBContext.edmx</DependentUpon>
-      <LastGenOutput>BondoraAssignementDBContext.Context.cs</LastGenOutput>
+      <DependentUpon>BondoraAssignementDB.edmx</DependentUpon>
+      <LastGenOutput>BondoraAssignementDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EntityFramework\BondoraAssignementDBContext.tt">
+    <Content Include="Models\EntityFramework\BondoraAssignementDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BondoraAssignementDBContext.edmx</DependentUpon>
-      <LastGenOutput>BondoraAssignementDBContext.cs</LastGenOutput>
+      <DependentUpon>BondoraAssignementDB.edmx</DependentUpon>
+      <LastGenOutput>BondoraAssignementDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\EntityFramework\BondoraAssignementDBContext.edmx">
+    <EntityDeploy Include="Models\EntityFramework\BondoraAssignementDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BondoraAssignementDBContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>BondoraAssignementDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\EntityFramework\BondoraAssignementDBContext.edmx.diagram">
-      <DependentUpon>BondoraAssignementDBContext.edmx</DependentUpon>
+    <Content Include="Models\EntityFramework\BondoraAssignementDB.edmx.diagram">
+      <DependentUpon>BondoraAssignementDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\cartDetail.js" />
+    <Content Include="Scripts\fusili.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -224,7 +241,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightPick.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\product.js" />
+    <Content Include="Scripts\sweetalert2.all.min.js" />
+    <Content Include="Scripts\user.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -238,9 +260,23 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\CartDetail\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\_Layout\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,45 +1,94 @@
-﻿@model PagedList.IPagedList<BondoraAssignment.Models.EntityFramework.Product>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model BondoraAssignment.Models.EntityFramework.Product
+<link href="~/Content/Lightpick.css" rel="stylesheet" type="text/css">
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Html.DisplayFor(model => model.name);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table>
-    <tr>
-        <td>
-            <p1>
-                Name
-            </p1>
-        </td>
-        <td>
-            <p1>
-                Description
-            </p1>
-        </td>
-        <td>
-            <p1>
-                Category
-            </p1>
-        </td>
-    </tr>
-    @foreach (var item in Model)
+<div>
+    <h2>You have selected the @Html.DisplayFor(model => model.name)</h2>
+    <button class="btn btn-primary" onclick="openModal(document.getElementById('rent-popup'));">Click here to rent this product</button>
+
+    <h4>Details : </h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Name of your product :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            Product description :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_description)
+        </dd>
+
+        <dt>
+            Product category :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.name)
+        </dd>
+
+        <dt>
+            Price :
+        </dt>
+
+        <dd>
+            @Html.Action("GetPrice", Model)
+        </dd>
+
+    </dl>
+
+    @if (Model.Category.fidelity_point > 1)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.product_description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.name)
-            </td>
-            <td>
-                @Html.ActionLink("Rent this item", "Rent", new { id = item.id })
-            </td>
-        </tr>
+        <p>New! With our loyalty system, thanks to this product, you can win @Html.DisplayFor(model => model.Category.fidelity_point) fidelity points !</p>
     }
-</table>
+    else if (Model.Category.fidelity_point == 1)
+    {
+        <p>New! With our loyalty system, thanks to this product, you can win @Html.DisplayFor(model => model.Category.fidelity_point) fidelity point !</p>
+    }
+
+</div>
+
+<div id="rent-popup" class="modal" aria-hidden="true">
+    <div class="modal_box">
+        <p>Please select a date if you want to rent this item :</p>
+        <input type="text" id="datepicker" />
+        <p id="result"></p>
+        <p hidden id="numderOfDays"></p>
+        <button class="btn btn-primary" onclick="RentItem()">Click here to confirm.</button>
+    </div>
+</div>
+
+<p>
+    @{
+        var url = "/Products/Index";
+    }
+    <a href="@url">Back to List</a>
+</p>
+
+<script src="~/Scripts/moment-with-locales.js"></script>
+<script src="~/Scripts/lightPick.js"></script>
+<script src="~/Scripts/product.js"></script>
+<script src="~/Scripts/fusili.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    var picker = new Lightpick({
+        field: document.getElementById('datepicker'),
+        singleDate: false,
+        selectForward: true,
+        onSelect: function (start, end) {
+            document.getElementById('numderOfDays').innerHTML = GetNumberOfDays(start, end);
+            document.getElementById('result').innerHTML = rangeText(start, end);
+        }
+    });
+</script>

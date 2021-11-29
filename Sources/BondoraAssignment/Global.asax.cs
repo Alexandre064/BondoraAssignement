@@ -1,3 +1,4 @@
+using BondoraAssignment.Models.DBInitializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace BondoraAssignment
     {
         protected void Application_Start()
         {
+            if (!BondoraAssignementDBInitializer.CheckifDataExist())
+            {
+                BondoraAssignementDBInitializer.InitDataBaseWithTestData();
+            }
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

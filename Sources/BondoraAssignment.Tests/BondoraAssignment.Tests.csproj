@@ -89,6 +89,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CartDetailControllerTest.cs" />
+    <Compile Include="Controllers\OrdersControllerTest.cs" />
+    <Compile Include="Controllers\ProductControllerTest.cs" />
+    <Compile Include="Controllers\ProductsControllerTest.cs" />
+    <Compile Include="Controllers\UsersControllerTest.cs" />
+    <Compile Include="CreateDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

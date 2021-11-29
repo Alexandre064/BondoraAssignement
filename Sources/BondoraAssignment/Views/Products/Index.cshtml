@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<BondoraAssignment.Models.EntityFramework.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.name)
+            </td>
+            <td>
+                @{
+                    var url = string.Format(
+                        "/Product?id={0}",
+                        @Uri.EscapeDataString(item.id.ToString())
+                        );
+                }
+                <a href="@url">More detail</a>
+            </td>
+        </tr>
+    }
+</table>

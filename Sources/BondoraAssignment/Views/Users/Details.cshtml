@@ -1,0 +1,127 @@
+﻿@model BondoraAssignment.Models.EntityFramework.User
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Full Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.full_name)
+        </dd>
+
+        <dt>
+            Address :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            Total of Fidelity Point Acquired :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fidelity_point)
+        </dd>
+
+        <dt>
+            Email :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            Phone number :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+        <dt>
+            Your last commands
+        </dt>
+
+        <dd>
+            @{
+                if (Model.OrderDetails.Count() == 0)
+                {
+                    <p>No past command.</p>
+                }
+                else
+                {
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Order ID
+                                </th>
+                                <th>
+                                    Order Date
+                                </th>
+                                <th>
+                                    Order Price
+                                </th>
+                                <th>
+                                    Order Fidelity point
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int cpt = 1;
+                                foreach (var item in Model.OrderDetails)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @cpt
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.order_id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Order.total_price)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Order.total_fidelity_point)
+                                        </td>
+                                        <td>
+                                            <input type="button" onclick="DownloadInvoice(@item.id, @Model.id)" value="Download invoice" />
+                                        </td>
+                                    </tr>
+                                    cpt++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </dd>
+    </dl>
+</div>
+
+<script src="~/Scripts/user.js"></script>

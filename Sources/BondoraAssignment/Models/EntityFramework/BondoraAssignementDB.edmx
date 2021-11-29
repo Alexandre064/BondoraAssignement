@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BondoraAssignementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BondoraAssignementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CartDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="number_of_day" Type="int" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id" />
@@ -40,7 +49,6 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="order_id" Type="int" />
-          <Property Name="product_id" Type="int" />
           <Property Name="date" Type="datetime" />
           <Property Name="user_id" Type="int" />
         </EntityType>
@@ -58,8 +66,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="255" />
           <Property Name="product_description" Type="varchar" MaxLength="2000" />
-          <Property Name="number_of_day" Type="int" />
           <Property Name="category_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductOrderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDetail" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="number_of_day" Type="int" />
         </EntityType>
         <EntityType Name="Rate">
           <Key>
@@ -78,8 +94,33 @@
           <Property Name="fidelity_point" Type="int" />
           <Property Name="email" Type="nvarchar" MaxLength="255" />
           <Property Name="phone" Type="nvarchar" MaxLength="255" />
+          <Property Name="address" Type="varchar" MaxLength="2000" />
         </EntityType>
-        <Association Name="FK__FromToCal__categ__36B12243">
+        <Association Name="FK__CartDetai__produ__3D5E1FD2">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="CartDetail" Type="Self.CartDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CartDetail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CartDetai__user___32E0915F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="CartDetail" Type="Self.CartDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CartDetail">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FromToCal__categ__3C69FB99">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="FromToCalculation" Type="Self.FromToCalculation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,7 +132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FromToCal__rate___35BCFE0A">
+        <Association Name="FK__FromToCal__rate___3B75D760">
           <End Role="Rate" Type="Self.Rate" Multiplicity="0..1" />
           <End Role="FromToCalculation" Type="Self.FromToCalculation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -103,7 +144,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__payment_i__34C8D9D1">
+        <Association Name="FK__Order__payment_i__3A81B327">
           <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -115,7 +156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__order__33D4B598">
+        <Association Name="FK__OrderDeta__order__398D8EEE">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -127,19 +168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__produ__31EC6D26">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__OrderDeta__user___32E0915F">
+        <Association Name="FK__OrderDeta__user___38996AB5">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -151,7 +180,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__categor__30F848ED">
+        <Association Name="FK__Product__categor__37A5467C">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -163,49 +192,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductOr__Order__35BCFE0A">
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderDetail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductOr__produ__36B12243">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BondoraAssignementDBModelStoreContainer">
+          <EntitySet Name="CartDetail" EntityType="Self.CartDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FromToCalculation" EntityType="Self.FromToCalculation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOrderDetail" EntityType="Self.ProductOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rate" EntityType="Self.Rate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__FromToCal__categ__36B12243" Association="Self.FK__FromToCal__categ__36B12243">
+          <AssociationSet Name="FK__CartDetai__produ__3D5E1FD2" Association="Self.FK__CartDetai__produ__3D5E1FD2">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CartDetail" EntitySet="CartDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CartDetai__user___32E0915F" Association="Self.FK__CartDetai__user___32E0915F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CartDetail" EntitySet="CartDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FromToCal__categ__3C69FB99" Association="Self.FK__FromToCal__categ__3C69FB99">
             <End Role="Category" EntitySet="Category" />
             <End Role="FromToCalculation" EntitySet="FromToCalculation" />
           </AssociationSet>
-          <AssociationSet Name="FK__FromToCal__rate___35BCFE0A" Association="Self.FK__FromToCal__rate___35BCFE0A">
+          <AssociationSet Name="FK__FromToCal__rate___3B75D760" Association="Self.FK__FromToCal__rate___3B75D760">
             <End Role="Rate" EntitySet="Rate" />
             <End Role="FromToCalculation" EntitySet="FromToCalculation" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__payment_i__34C8D9D1" Association="Self.FK__Order__payment_i__34C8D9D1">
+          <AssociationSet Name="FK__Order__payment_i__3A81B327" Association="Self.FK__Order__payment_i__3A81B327">
             <End Role="Payment" EntitySet="Payment" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__order__33D4B598" Association="Self.FK__OrderDeta__order__33D4B598">
+          <AssociationSet Name="FK__OrderDeta__order__398D8EEE" Association="Self.FK__OrderDeta__order__398D8EEE">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__produ__31EC6D26" Association="Self.FK__OrderDeta__produ__31EC6D26">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="OrderDetail" EntitySet="OrderDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__user___32E0915F" Association="Self.FK__OrderDeta__user___32E0915F">
+          <AssociationSet Name="FK__OrderDeta__user___38996AB5" Association="Self.FK__OrderDeta__user___38996AB5">
             <End Role="Users" EntitySet="Users" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__categor__30F848ED" Association="Self.FK__Product__categor__30F848ED">
+          <AssociationSet Name="FK__Product__categor__37A5467C" Association="Self.FK__Product__categor__37A5467C">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__Order__35BCFE0A" Association="Self.FK__ProductOr__Order__35BCFE0A">
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__produ__36B12243" Association="Self.FK__ProductOr__produ__36B12243">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetail" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BondoraAssignementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CartDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="number_of_day" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__CartDetai__produ__3D5E1FD2" FromRole="CartDetail" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK__CartDetai__user___32E0915F" FromRole="CartDetail" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id" />
@@ -215,8 +292,8 @@
           <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="rate_id" Type="Int32" />
           <Property Name="fidelity_point" Type="Int32" />
-          <NavigationProperty Name="FromToCalculations" Relationship="Self.FK__FromToCal__categ__36B12243" FromRole="Category" ToRole="FromToCalculation" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Product__categor__30F848ED" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="FromToCalculations" Relationship="Self.FK__FromToCal__categ__3C69FB99" FromRole="Category" ToRole="FromToCalculation" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__categor__37A5467C" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="FromToCalculation">
           <Key>
@@ -227,8 +304,8 @@
           <Property Name="category_id" Type="Int32" />
           <Property Name="from" Type="Int32" />
           <Property Name="to" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__FromToCal__categ__36B12243" FromRole="FromToCalculation" ToRole="Category" />
-          <NavigationProperty Name="Rate" Relationship="Self.FK__FromToCal__rate___35BCFE0A" FromRole="FromToCalculation" ToRole="Rate" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__FromToCal__categ__3C69FB99" FromRole="FromToCalculation" ToRole="Category" />
+          <NavigationProperty Name="Rate" Relationship="Self.FK__FromToCal__rate___3B75D760" FromRole="FromToCalculation" ToRole="Rate" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -238,8 +315,8 @@
           <Property Name="payment_id" Type="Int32" />
           <Property Name="total_price" Type="Int32" />
           <Property Name="total_fidelity_point" Type="Int32" />
-          <NavigationProperty Name="Payment" Relationship="Self.FK__Order__payment_i__34C8D9D1" FromRole="Order" ToRole="Payment" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__33D4B598" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="Payment" Relationship="Self.FK__Order__payment_i__3A81B327" FromRole="Order" ToRole="Payment" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__398D8EEE" FromRole="Order" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -247,12 +324,11 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="order_id" Type="Int32" />
-          <Property Name="product_id" Type="Int32" />
           <Property Name="date" Type="DateTime" Precision="3" />
           <Property Name="user_id" Type="Int32" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__order__33D4B598" FromRole="OrderDetail" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__OrderDeta__produ__31EC6D26" FromRole="OrderDetail" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="Self.FK__OrderDeta__user___32E0915F" FromRole="OrderDetail" ToRole="Users" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__order__398D8EEE" FromRole="OrderDetail" ToRole="Order" />
+          <NavigationProperty Name="User" Relationship="Self.FK__OrderDeta__user___38996AB5" FromRole="OrderDetail" ToRole="Users" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.FK__ProductOr__Order__35BCFE0A" FromRole="OrderDetail" ToRole="ProductOrderDetail" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -260,7 +336,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__payment_i__34C8D9D1" FromRole="Payment" ToRole="Order" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__payment_i__3A81B327" FromRole="Payment" ToRole="Order" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -269,10 +345,21 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="product_description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="number_of_day" Type="Int32" />
           <Property Name="category_id" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Product__categor__30F848ED" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__produ__31EC6D26" FromRole="Product" ToRole="OrderDetail" />
+          <NavigationProperty Name="CartDetails" Relationship="Self.FK__CartDetai__produ__3D5E1FD2" FromRole="Product" ToRole="CartDetail" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Product__categor__37A5467C" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="ProductOrderDetails" Relationship="Self.FK__ProductOr__produ__36B12243" FromRole="Product" ToRole="ProductOrderDetail" />
+        </EntityType>
+        <EntityType Name="ProductOrderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDetail" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="number_of_day" Type="Int32" />
+          <NavigationProperty Name="OrderDetail1" Relationship="Self.FK__ProductOr__Order__35BCFE0A" FromRole="ProductOrderDetail" ToRole="OrderDetail" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProductOr__produ__36B12243" FromRole="ProductOrderDetail" ToRole="Product" />
         </EntityType>
         <EntityType Name="Rate">
           <Key>
@@ -281,7 +368,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Int32" />
-          <NavigationProperty Name="FromToCalculations" Relationship="Self.FK__FromToCal__rate___35BCFE0A" FromRole="Rate" ToRole="FromToCalculation" />
+          <NavigationProperty Name="FromToCalculations" Relationship="Self.FK__FromToCal__rate___3B75D760" FromRole="Rate" ToRole="FromToCalculation" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -292,9 +379,35 @@
           <Property Name="fidelity_point" Type="Int32" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__user___32E0915F" FromRole="Users" ToRole="OrderDetail" />
+          <NavigationProperty Name="CartDetails" Relationship="Self.FK__CartDetai__user___32E0915F" FromRole="Users" ToRole="CartDetail" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__user___38996AB5" FromRole="Users" ToRole="OrderDetail" />
+          <Property Name="address" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__FromToCal__categ__36B12243">
+        <Association Name="FK__CartDetai__produ__3D5E1FD2">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="CartDetail" Type="Self.CartDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CartDetail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CartDetai__user___32E0915F">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CartDetail" Type="Self.CartDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CartDetail">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FromToCal__categ__3C69FB99">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="FromToCalculation" Type="Self.FromToCalculation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +419,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__categor__30F848ED">
+        <Association Name="FK__Product__categor__37A5467C">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +431,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FromToCal__rate___35BCFE0A">
+        <Association Name="FK__FromToCal__rate___3B75D760">
           <End Role="Rate" Type="Self.Rate" Multiplicity="0..1" />
           <End Role="FromToCalculation" Type="Self.FromToCalculation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +443,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__payment_i__34C8D9D1">
+        <Association Name="FK__Order__payment_i__3A81B327">
           <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -342,7 +455,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__order__33D4B598">
+        <Association Name="FK__OrderDeta__order__398D8EEE">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -354,19 +467,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__produ__31EC6D26">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__OrderDeta__user___32E0915F">
+        <Association Name="FK__OrderDeta__user___38996AB5">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -378,42 +479,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductOr__Order__35BCFE0A">
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderDetail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="OrderDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductOr__produ__36B12243">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductOrderDetail" Type="Self.ProductOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductOrderDetail">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BondoraAssignementDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CartDetails" EntityType="Self.CartDetail" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="FromToCalculations" EntityType="Self.FromToCalculation" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductOrderDetails" EntityType="Self.ProductOrderDetail" />
           <EntitySet Name="Rates" EntityType="Self.Rate" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__FromToCal__categ__36B12243" Association="Self.FK__FromToCal__categ__36B12243">
+          <AssociationSet Name="FK__CartDetai__produ__3D5E1FD2" Association="Self.FK__CartDetai__produ__3D5E1FD2">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CartDetail" EntitySet="CartDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CartDetai__user___32E0915F" Association="Self.FK__CartDetai__user___32E0915F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CartDetail" EntitySet="CartDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FromToCal__categ__3C69FB99" Association="Self.FK__FromToCal__categ__3C69FB99">
             <End Role="Category" EntitySet="Categories" />
             <End Role="FromToCalculation" EntitySet="FromToCalculations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__categor__30F848ED" Association="Self.FK__Product__categor__30F848ED">
+          <AssociationSet Name="FK__Product__categor__37A5467C" Association="Self.FK__Product__categor__37A5467C">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__FromToCal__rate___35BCFE0A" Association="Self.FK__FromToCal__rate___35BCFE0A">
+          <AssociationSet Name="FK__FromToCal__rate___3B75D760" Association="Self.FK__FromToCal__rate___3B75D760">
             <End Role="Rate" EntitySet="Rates" />
             <End Role="FromToCalculation" EntitySet="FromToCalculations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__payment_i__34C8D9D1" Association="Self.FK__Order__payment_i__34C8D9D1">
+          <AssociationSet Name="FK__Order__payment_i__3A81B327" Association="Self.FK__Order__payment_i__3A81B327">
             <End Role="Payment" EntitySet="Payments" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__order__33D4B598" Association="Self.FK__OrderDeta__order__33D4B598">
+          <AssociationSet Name="FK__OrderDeta__order__398D8EEE" Association="Self.FK__OrderDeta__order__398D8EEE">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__produ__31EC6D26" Association="Self.FK__OrderDeta__produ__31EC6D26">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__user___32E0915F" Association="Self.FK__OrderDeta__user___32E0915F">
+          <AssociationSet Name="FK__OrderDeta__user___38996AB5" Association="Self.FK__OrderDeta__user___38996AB5">
             <End Role="Users" EntitySet="Users" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__Order__35BCFE0A" Association="Self.FK__ProductOr__Order__35BCFE0A">
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__produ__36B12243" Association="Self.FK__ProductOr__produ__36B12243">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductOrderDetail" EntitySet="ProductOrderDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -422,6 +561,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BondoraAssignementDBModelStoreContainer" CdmEntityContainer="BondoraAssignementDBEntities">
+          <EntitySetMapping Name="CartDetails">
+            <EntityTypeMapping TypeName="BondoraAssignementDBModel.CartDetail">
+              <MappingFragment StoreEntitySet="CartDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="number_of_day" ColumnName="number_of_day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="BondoraAssignementDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -459,7 +608,6 @@
               <MappingFragment StoreEntitySet="OrderDetail">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
@@ -479,8 +627,17 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="product_description" ColumnName="product_description" />
-                <ScalarProperty Name="number_of_day" ColumnName="number_of_day" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOrderDetails">
+            <EntityTypeMapping TypeName="BondoraAssignementDBModel.ProductOrderDetail">
+              <MappingFragment StoreEntitySet="ProductOrderDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="OrderDetail" ColumnName="OrderDetail" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="number_of_day" ColumnName="number_of_day" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -496,6 +653,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="BondoraAssignementDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="fidelity_point" ColumnName="fidelity_point" />

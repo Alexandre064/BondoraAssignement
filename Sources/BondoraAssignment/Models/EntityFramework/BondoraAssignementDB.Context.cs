@@ -25,12 +25,14 @@ namespace BondoraAssignment.Models.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CartDetail> CartDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<FromToCalculation> FromToCalculations { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductOrderDetail> ProductOrderDetails { get; set; }
         public virtual DbSet<Rate> Rates { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
