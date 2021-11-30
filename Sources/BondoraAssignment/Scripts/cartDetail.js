@@ -25,7 +25,7 @@ function Confirmed(productId, user) {
             if (result == "succedded") {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Product removed from your command',
+                    title: 'Product removed from your order',
                     showConfirmButton: true
                 }).then((result) => {
                     location.reload();
@@ -49,11 +49,11 @@ function Confirmed(productId, user) {
     });
 }
 
-function ConfirmBuyCommand(userId)
+function ConfirmBuyOrder(userId)
 {
     $.ajax({
         type: "POST",
-        url: "/CartDetail/ConfirmCommand",
+        url: "/CartDetail/ConfirmOrder",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({ user: userId }),

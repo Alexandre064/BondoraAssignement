@@ -119,13 +119,13 @@ namespace BondoraAssignment.Models
         }
 
         /// <summary>
-        /// Copy all data from user cart into the order details of the user to confirm the command
+        /// Copy all data from user cart into the order details of the user to confirm the order
         /// </summary>
         /// <param name="userid"></param>
         /// <param name="totalPrice"></param>
         /// <param name="totalFidelityPoint"></param>
         /// <returns>True if everything went well, otherwise return false</returns>
-        public static async Task<bool> ConfirmCommandForUser(int userid, int? totalPrice, int? totalFidelityPoint)
+        public static async Task<bool> ConfirmOrderForUser(int userid, int? totalPrice, int? totalFidelityPoint)
         {
 
             try

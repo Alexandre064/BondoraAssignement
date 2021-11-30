@@ -68,7 +68,7 @@
                             </td>
 
                             <td>
-                                <button type="button" onclick="RemoveItemFromCart(@item.id,@Model.id)">Remove from cart</button>
+                                <button class="btn btn-primary" type="button" onclick="RemoveItemFromCart(@item.id,@Model.id)">Remove from cart</button>
                             </td>
                         </tr>
                         cpt++;
@@ -79,7 +79,7 @@
                 <tr>
                     <th>
                         Total price : @Html.Action("GetTotalPrice", Model)
-                        <button type="button" onclick="ConfirmBuyCommand(@Model.id)"> Buy ! </button>
+                        <button class="btn btn-primary" type="button" onclick="ConfirmBuyOrder(@Model.id)"> Buy ! </button>
                     </th>
                 </tr>
             </tfoot>

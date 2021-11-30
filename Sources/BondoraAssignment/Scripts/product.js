@@ -53,9 +53,9 @@ function RentItem() {
         success: function (result) {
             if (result == "succedded") {
                 Swal.fire({
-                    timer: 2000,
+                    timer: 1500,
                     icon: 'success',
-                    title: 'Product added to your command',
+                    title: 'Product added to your order',
                     showConfirmButton: true
                 });
             }

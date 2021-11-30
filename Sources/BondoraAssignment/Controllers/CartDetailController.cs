@@ -51,12 +51,12 @@ namespace BondoraAssignment.Controllers
             }
         }
         [HttpPost]
-        public async Task<JsonResult> ConfirmCommand(int user)
+        public async Task<JsonResult> ConfirmOrder(int user)
         {
             User userModel = await Task.Run(() => DBRequest.GetUserById(user));
-            bool commandPassed = await Task.Run(() => DBRequest.ConfirmCommandForUser(userModel.id, CalculatorHelper.CalculateTotalPrice(userModel), CalculatorHelper.CalculateTotalFidelityPoint(userModel)));
+            bool orderPassed = await Task.Run(() => DBRequest.ConfirmOrderForUser(userModel.id, CalculatorHelper.CalculateTotalPrice(userModel), CalculatorHelper.CalculateTotalFidelityPoint(userModel)));
 
-            if (commandPassed)
+            if (orderPassed)
             {
                 DBRequest.AddFidelityPoint(userModel, CalculatorHelper.CalculateTotalFidelityPoint(userModel));
                 DBRequest.RemoveAllItemFromUserCart(userModel);

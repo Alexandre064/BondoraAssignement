@@ -52,14 +52,14 @@
         </dd>
 
         <dt>
-            Your last commands
+            Your last orders
         </dt>
 
         <dd>
             @{
                 if (Model.OrderDetails.Count() == 0)
                 {
-                    <p>No past command.</p>
+                    <p>No past order.</p>
                 }
                 else
                 {
@@ -110,7 +110,7 @@
                                             @Html.DisplayFor(modelItem => item.Order.total_fidelity_point)
                                         </td>
                                         <td>
-                                            <input type="button" onclick="DownloadInvoice(@item.id, @Model.id)" value="Download invoice" />
+                                            <input class="btn btn-primary" type="button" onclick="DownloadInvoice(@item.id, @Model.id)" value="Download invoice" />
                                         </td>
                                     </tr>
                                     cpt++;
